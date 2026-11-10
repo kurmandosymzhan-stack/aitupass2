@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AITUpass</title>
+<style>
+:root{--brand:#2D5BFF;--brand2:#1B3FCC;--bg:#F3F5FA;--card:#fff;--text:#14182B;--muted:#6B7390;--line:#E3E7F1;--ok:#17A673;--err:#E5484D;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0E1220;--card:#181D31;--text:#EEF1FB;--muted:#99A1BF;--line:#272D47}}
+:root[data-theme="dark"]{--bg:#0E1220;--card:#181D31;--text:#EEF1FB;--muted:#99A1BF;--line:#272D47}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.app{max-width:520px;margin:0 auto;padding:0 16px 90px}
+header{display:flex;align-items:center;justify-content:space-between;padding:16px 0 8px}
+.logo{font-weight:800;font-size:22px;letter-spacing:-.5px}.logo b{color:var(--brand)}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px}
+.hero{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:18px;margin:8px 0 14px}
+.hero h2{margin:0 0 4px;font-size:19px}.hero p{margin:0;opacity:.85;font-size:13px}
+.stats{display:flex;gap:8px;margin-top:14px}.stat{flex:1;background:rgba(255,255,255,.16);border-radius:12px;padding:8px 10px}
+.stat b{display:block;font-size:18px}.stat span{font-size:11px;opacity:.85}
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--text);padding:7px 14px;border-radius:20px;font-size:13px;white-space:nowrap;cursor:pointer}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.card{background:var(--card);border-radius:18px;margin:12px 0;overflow:hidden;border:1px solid var(--line);cursor:pointer}
+.poster{position:relative;overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;height:300px}
+.poster .art{position:absolute;inset:0;width:100%;height:100%;opacity:.22}
+.poster .big-e{position:absolute;right:-4px;top:34px;font-size:130px;opacity:.4;transform:rotate(-10deg)}
+.shade{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05) 25%,rgba(0,0,0,.8))}
+.poster>*:not(.shade):not(.art):not(.big-e){position:relative}
+.ptop{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:auto}
+.pill2{background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border-radius:12px;padding:4px 10px;font-size:12px;font-weight:600}
+.ptitle{font-size:24px;font-weight:800;line-height:1.15;margin:10px 0 4px}
+.pmeta{font-size:13px;opacity:.9;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.grid small{color:var(--muted);font-size:11px;padding:4px 0}
+.day{border:0;background:none;color:var(--text);border-radius:12px;padding:10px 0;font-size:14px;cursor:pointer;position:relative}
+.day.has{font-weight:800;background:var(--bg)}
+.day.has::after{content:"";position:absolute;left:50%;bottom:3px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--brand)}
+.day.on{background:var(--brand);color:#fff}.day.on::after{background:#fff}
+.tag{background:rgba(255,255,255,.22);border-radius:10px;padding:3px 9px;font-size:11px;font-weight:600}
+.body{padding:12px 14px}.body h3{margin:0 0 4px;font-size:16px}.meta{color:var(--muted);font-size:13px}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:10px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:14px;padding:12px 18px;font-size:15px;font-weight:700;cursor:pointer;width:100%}
+.btn.sm{width:auto;padding:8px 16px;font-size:13px;border-radius:12px}.btn:active{background:var(--brand2)}
+.btn.ghost{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn[disabled]{background:var(--line);color:var(--muted)}
+.back{background:none;border:0;color:var(--brand);font-size:15px;font-weight:600;padding:12px 0;cursor:pointer}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin:10px 0}
+.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.kv:last-child{border:0}.kv span{color:var(--muted)}
+label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:15px}
+.big{text-align:center;padding:28px 16px}.icon{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;font-size:32px;color:#fff}
+.pill{display:inline-block;border-radius:10px;padding:2px 9px;font-size:12px;font-weight:600}
+.yes{background:#17A67326;color:var(--ok)}.no{background:#E5484D26;color:var(--err)}.wait{background:var(--line);color:var(--muted)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid var(--line);display:flex;justify-content:center;padding:8px 0 calc(8px + env(safe-area-inset-bottom,0px))}
+nav div{display:flex;width:100%;max-width:520px}nav button{flex:1;background:none;border:0;color:var(--muted);font-size:12px;padding:6px;cursor:pointer}nav button.on{color:var(--brand);font-weight:700}
+nav i{display:block;font-style:normal;font-size:20px}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<nav><div><button id="n1" onclick="go('home')"><i>🎟</i>Events</button><button id="n2" onclick="go('mine')"><i>📋</i>My passes</button><button id="n3" onclick="go('calendar')"><i>📅</i>Calendar</button></div></nav>
+<script>
+var B=[{building_id:1,building_name:"Main Building, Assembly Hall",capacity:300,address:"Mangilik El 55/11"},
+{building_id:2,building_name:"Lab Block, Room L-204",capacity:60,address:"Mangilik El 55/11"},
+{building_id:3,building_name:"Sports Complex, Arena",capacity:200,address:"Mangilik El 55/11"},
+{building_id:4,building_name:"Library, Conference Room",capacity:80,address:"Mangilik El 55/11"}];
+var E=[{event_id:1,title:"IT Hackathon 2026",event_date:"2026-11-20 10:00",building_id:2,category:"Science",taken:52},
+{event_id:2,title:"Career Day: IT Companies",event_date:"2026-11-24 14:00",building_id:1,category:"Career",taken:180},
+{event_id:3,title:"AITU Football Cup",event_date:"2026-11-27 16:00",building_id:3,category:"Sport",taken:120},
+{event_id:4,title:"Cultural Evening: Nauryz Talents",event_date:"2026-12-02 18:00",building_id:1,category:"Culture",taken:300},
+{event_id:5,title:"AI and Data Science Talk",event_date:"2026-12-05 12:00",building_id:4,category:"Science",taken:41},
+{event_id:6,title:"Resume Workshop",event_date:"2026-12-09 15:00",building_id:4,category:"Career",taken:30}];
+var G={Science:"linear-gradient(135deg,#2D5BFF,#6A8BFF)",Career:"linear-gradient(135deg,#7A3DFF,#B07DFF)",Sport:"linear-gradient(135deg,#0E9F6E,#4FD1A5)",Culture:"linear-gradient(135deg,#E5484D,#FF8A8E)"};
+var R=[{registration_id:1,event_id:5,student_id:220101,registration_date:"2026-11-01 09:30",attended:"No"}];
+var S={student_id:220101,full_name:"Aruzhan Sadykova",faculty:"Software Engineering",study_year:2};
+var cat="All",view="home",cur=null,msg="",app=document.getElementById("app");
+function bld(id){return B.filter(function(b){return b.building_id==id})[0]}
+function ev(id){return E.filter(function(e){return e.event_id==id})[0]}
+function left(e){return bld(e.building_id).capacity-e.taken}
+function go(v,id){view=v;cur=id||null;render();window.scrollTo(0,0)}
+function head(){return '<header><div class="logo">AITU<b>pass</b></div><div class="avatar">AS</div></header>'}
+function home(){
+ var cs=["All","Science","Career","Sport","Culture"];
+ var list=E.filter(function(e){return cat=="All"||e.category==cat});
+ var att=R.filter(function(r){return r.attended=="Yes"}).length;
+ var h=head()+'<div class="hero"><h2>Events at AITU</h2><p>Register in one tap and get your pass</p><div class="stats"><div class="stat"><b>'+E.length+'</b><span>events</span></div><div class="stat"><b>'+R.length+'</b><span>my registrations</span></div><div class="stat"><b>'+att+'</b><span>attended</span></div></div></div>';
+ h+='<div class="chips">'+cs.map(function(c){return '<button class="chip'+(c==cat?' on':'')+'" onclick="cat=\''+c+'\';render()">'+c+'</button>'}).join("")+'</div>';
+ h+=list.map(card).join("");
+ return h}
+function detail(){
+ var e=ev(cur),b=bld(e.building_id),l=left(e);
+ return '<button class="back" onclick="go(\'home\')">‹ Back</button><div class="card" style="cursor:default">'+poster(e,240)+'</div><div class="panel">'+
+ kv("event_id",e.event_id)+kv("event_date",e.event_date)+kv("building_name",b.building_name)+kv("address",b.address)+kv("capacity",b.capacity)+kv("Seats left",l)+'</div>'+
+ '<button class="btn"'+(l>0?'':' disabled')+' onclick="go(\'form\','+e.event_id+')">'+(l>0?'Register':'Sold out')+'</button>'}
+function kv(k,v){return '<div class="kv"><span>'+k+'</span><b>'+v+'</b></div>'}
+function form(){
+ var e=ev(cur);
+ return '<button class="back" onclick="go(\'detail\','+cur+')">‹ Back</button><div class="panel"><b>'+e.title+'</b><div class="meta">'+e.event_date+'</div>'+
+ '<label>student_id</label><input id="sid" inputmode="numeric" value="'+S.student_id+'">'+
+ '<label>full_name</label><input id="fn" value="'+S.full_name+'">'+
+ '<label>faculty</label><select id="fa"><option>Software Engineering</option><option>Cybersecurity</option><option>Big Data</option><option>Media Technologies</option></select>'+
+ '<label>study_year</label><select id="sy"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></div>'+
+ '<button class="btn" onclick="submit()">Confirm registration</button>'}
+function submit(){
+ var sid=+document.getElementById("sid").value,fn=document.getElementById("fn").value.trim(),e=ev(cur);
+ if(!sid||!fn){msg="Please fill in student_id and full_name.";return go("fail",cur)}
+ if(R.some(function(r){return r.event_id==cur&&r.student_id==sid})){msg="This student_id is already registered for this event.";return go("fail",cur)}
+ if(left(e)<1){msg="No seats left.";return go("fail",cur)}
+ var r={registration_id:R.length+1,event_id:cur,student_id:sid,registration_date:"2026-11-06 "+new Date().toTimeString().slice(0,5),attended:"No"};
+ R.push(r);e.taken++;go("done",r.registration_id)}
+function done(){
+ var r=R.filter(function(x){return x.registration_id==cur})[0],e=ev(r.event_id);
+ return head()+'<div class="panel big"><div class="icon" style="background:var(--ok)">✓</div><h2 style="margin:0">You are registered!</h2><p class="meta">'+e.title+'</p></div><div class="panel">'+kv("registration_id",r.registration_id)+kv("student_id",r.student_id)+kv("registration_date",r.registration_date)+kv("attended",r.attended)+'</div><button class="btn" onclick="go(\'mine\')">My passes</button><br><br><button class="btn ghost" onclick="go(\'home\')">Back to events</button>'}
+function fail(){
+ return head()+'<div class="panel big"><div class="icon" style="background:var(--err)">!</div><h2 style="margin:0">Registration failed</h2><p class="meta">'+msg+'</p></div><button class="btn" onclick="go(\'form\','+cur+')">Try again</button><br><br><button class="btn ghost" onclick="go(\'home\')">Back to events</button>'}
+function mine(){
+ var h=head()+'<h2 style="margin:8px 0">My passes</h2>';
+ if(!R.length)return h+'<p class="meta">No registrations yet.</p>';
+ return h+R.map(function(r){var e=ev(r.event_id);return '<div class="panel" style="cursor:pointer" onclick="go(\'detail\','+e.event_id+')"><div class="row" style="margin:0"><b>'+e.title+'</b><span class="pill '+(r.attended=="Yes"?'yes':'wait')+'">'+(r.attended=="Yes"?'Attended':'Registered')+'</span></div><div class="meta">#'+r.registration_id+' · '+e.event_date+' · '+bld(e.building_id).building_name+'</div></div>'}).join("")}
+var EM={Science:"💻",Career:"💼",Sport:"⚽",Culture:"🎭"},cm=11,cd=null;
+function poster(e,h,btn){var d=e.event_date,l=left(e);
+ return '<div class="poster" style="height:'+h+'px;background:'+G[e.category]+'"><svg class="art" viewBox="0 0 200 200" preserveAspectRatio="none"><circle cx="30" cy="40" r="60" fill="#fff"/><circle cx="190" cy="160" r="80" fill="#fff" opacity=".5"/></svg><span class="big-e">'+EM[e.category]+'</span><div class="shade"></div><div class="ptop"><span class="pill2">'+e.category+'</span><span class="pill2">'+d.slice(8,10)+'.'+d.slice(5,7)+' · '+d.slice(11)+'</span></div><div class="ptitle">'+e.title+'</div><div class="pmeta">'+bld(e.building_id).building_name+' · '+(l>0?l+' seats left':'Sold out')+'</div>'+(btn||'')+'</div>'}
+function card(e){var l=left(e);
+ return '<div class="card" onclick="go(\'detail\','+e.event_id+')">'+poster(e,300,'<button class="btn"'+(l>0?'':' disabled')+'>'+(l>0?'Register':'Sold out')+'</button>')+'</div>'}
+function pad(n){return n<10?"0"+n:""+n}
+function calendar(){
+ var days=new Date(2026,cm,0).getDate(),off=(new Date(2026,cm-1,1).getDay()+6)%7,key=function(d){return "2026-"+pad(cm)+"-"+pad(d)};
+ var evs=function(d){return E.filter(function(e){return e.event_date.slice(0,10)==key(d)})};
+ var h=head()+'<h2 style="margin:8px 0">Calendar</h2><div class="chips"><button class="chip'+(cm==11?' on':'')+'" onclick="cm=11;cd=null;render()">November 2026</button><button class="chip'+(cm==12?' on':'')+'" onclick="cm=12;cd=null;render()">December 2026</button></div><div class="panel"><div class="grid">'+["Mo","Tu","We","Th","Fr","Sa","Su"].map(function(x){return '<small>'+x+'</small>'}).join("");
+ for(var i=0;i<off;i++)h+='<span></span>';
+ for(var d=1;d<=days;d++)h+='<button class="day'+(evs(d).length?' has':'')+(cd==d?' on':'')+'" onclick="cd='+d+';render()">'+d+'</button>';
+ h+='</div></div>';
+ var list=E.filter(function(e){return e.event_date.slice(5,7)==pad(cm)&&(cd==null||+e.event_date.slice(8,10)==cd)});
+ h+='<div class="meta" style="margin:6px 0">'+(cd?cd+'.'+pad(cm):'All events this month')+'</div>';
+ if(!list.length)return h+'<p class="meta">No events on this day.</p>';
+ return h+list.map(function(e){return '<div class="panel" style="cursor:pointer;border-left:5px solid var(--brand)" onclick="go(\'detail\','+e.event_id+')"><b>'+e.title+'</b><div class="meta">'+e.event_date.slice(8,10)+'.'+e.event_date.slice(5,7)+' · '+e.event_date.slice(11)+' · '+bld(e.building_id).building_name+'</div></div>'}).join("")}
+function render(){
+ var m={home:home,detail:detail,form:form,done:done,fail:fail,mine:mine,calendar:calendar};
+ app.innerHTML=m[view]();
+ document.getElementById("n1").className=(view=="mine"||view=="calendar")?"":"on";
+ document.getElementById("n2").className=view=="mine"?"on":"";
+ document.getElementById("n3").className=view=="calendar"?"on":""}
+render();
+</script>
+</body>
+</html>
